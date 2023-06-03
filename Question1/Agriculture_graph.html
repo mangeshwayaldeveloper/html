@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agricultural Statistics</title>
+
+    <!--    for css file-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <!--    for j query-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <!--    latest js file-->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+        html, body #container {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        h2 {
+            text-align: center;
+            font-family: "Calibri Light";
+            font-weight: bold;
+            margin-top: 50px;
+        }
+
+        #foot {
+            background-color: #282727;
+            color: white;
+            padding-top: 20px;
+        }
+
+        #lineGraph {
+            display: block;
+            margin: 0 auto;
+        }
+
+        @media only screen and(max-width: 850px) {
+
+        }
+    </style>
+</head>
+<body>
+<header id="header">
+    <nav class="navbar navbar-default" id="nav">
+        <div class="container-fluid">
+            <div class="navbar-header txt_color">
+                <a class="navbar-brand" href="#" style="color: black">Government Of India</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li class="active" style="color: black"><a href="#">Home</a></li>
+                <li><a href="#" style="color: black">Skip To Main Content</a></li>
+            </ul>
+        </div>
+    </nav>
+</header>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6 col-sm-12 col-md-12">
+            <img id='des' src="deslogo_new.png" alt="image_from_goi_site"
+                 style="max-width:100%; height:auto;">
+        </div>
+        <div class="col-6 col-md-4">
+            <img id='emblum' src="emblum.jpg" alt="national_emblum" style="margin-left:350px">
+        </div>
+    </div>
+</div>
+<h2>Agricultural Statistical Department Of GOI</h2>
+<canvas style="align-content: center;margin-top: 10px" id="lineGraph" width="550" height="450"></canvas>
+<script>
+    // Get the canvas element
+    var canvas = document.getElementById('lineGraph');
+    var context = canvas.getContext('2d');
+
+    // Define the data points
+    var data = [
+        {x: 2001, y: 281},
+        {x: 2002, y: 277},
+        {x: 2003, y: 275},
+        {x: 2004, y: 457},
+        {x: 2005, y: 200},
+        {x: 2006, y: 280},
+        {x: 2007, y: 150},
+    ];
+
+    // Set up the graph boundaries
+    var minX = 2001;
+    var minY = 0;
+    var maxX = 2007;
+    var maxY = 500;
+
+    // Calculate the scaling factors
+    var scaleX = (canvas.width - 50) / (maxX - minX);
+    var scaleY = (canvas.height - 50) / (maxY - minY);
+
+    // Function to convert data point coordinates to canvas coordinates
+    function convertToCanvasCoordinates(point) {
+        var canvasX = (point.x - minX) * scaleX + 25;
+        var canvasY = canvas.height - (point.y - minY) * scaleY - 25;
+        return {x: canvasX, y: canvasY};
+    }
+
+    // Function to draw text labels on the canvas
+    function drawText(x, y, text) {
+        context.font = '12px Arial';
+        context.strokeStyle = 'red';
+        context.textAlign = 'center';
+        context.textBaseline = 'middle';
+        context.fillText(text, x, y);
+
+    }
+
+    // Clear the canvas
+    context.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Draw the x and y axes
+    context.beginPath();
+    context.moveTo(25, canvas.height - 25);
+    context.lineTo(canvas.width - 25, canvas.height - 25);
+    context.moveTo(25, 25);
+    context.lineTo(25, canvas.height - 25);
+    context.stroke();
+
+    // Draw the x-axis labels
+    for (var i = minX; i <= maxX; i++) {
+        var canvasCoords = convertToCanvasCoordinates({x: i, y: 0});
+        drawText(canvasCoords.x, canvas.height - 10, i.toString());
+    }
+
+    // Draw the y-axis labels
+    for (var j = minY; j <= maxY; j += 100) {
+        var canvasCoords = convertToCanvasCoordinates({x: 0, y: j});
+        drawText(15, canvasCoords.y, j.toString());
+    }
+
+    // Draw the line graph
+    context.beginPath();
+    for (var k = 0; k < data.length; k++) {
+        var canvasCoords = convertToCanvasCoordinates(data[k]);
+        if (k === 0) {
+            context.moveTo(canvasCoords.x, canvasCoords.y);
+        } else {
+            context.lineTo(canvasCoords.x, canvasCoords.y);
+        }
+    }
+    context.stroke();
+</script>
+<div>
+    <p style="text-align: center;margin-top: 20px;font-weight: bold;font-family: Arial">Line chart of the yield of Bajra from 2001 to 2007</p>
+</div>
+<!--Footer of my website-->
+<footer id="foot" style="margin-top: 60px">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                <img src="logo.png" style="padding-top: 30px">
+            </div>
+            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="padding-top: 10px">
+                <p>
+                    Copyright © 2023 &#8211; All Rights Reserved – Official website of Mangesh Wayal<br/>
+                    Student of Dr D Y Patil Institute of Management & Research
+                </p>
+                <p>
+                    Note: Content on this website is published and managed by Mangesh Wayal<br/>
+                </p>
+                <br>
+                <p>For any query regarding this website, please contact the web information manager,<br/>
+                    <strong> Name: Mangesh Wayal<br/></strong></p>
+            </div>
+
+            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="padding-left:100px">
+                <div>
+                    <p>Social Media Accounts:
+                    </p>
+                </div>
+                <div>
+                    <a href="https://wa.me/918856832195?text=Hello%20Sir%20I%20Need%20Your%20Help"><img
+                            src="icons8-whatsapp-48.png"></a>
+                    <a href="https://www.instagram.com/mangeshwayal_patil/?hl=en"><img
+                            src="icons8-instagram-48.png"></a>
+                    <a href="https://github.com/mangeshwayaldeveloper"><img src="icons8-github-50.png"></a>
+                    <a href="https://www.linkedin.com/in/mangesh-wayal-548768191/"><img
+                            src="icons8-linkedin-48.png"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+</body>
+</html>
