@@ -51,7 +51,7 @@
             </div>
             <ul class="nav navbar-nav">
                 <li class="active" style="color: black"><a href="#">Home</a></li>
-                <li><a href="#" style="color: black">Skip To Main Content</a></li>
+                <li><a href="#skip" style="color: black">Skip To Main Content</a></li>
             </ul>
         </div>
     </nav>
@@ -67,7 +67,7 @@
         </div>
     </div>
 </div>
-<h2>Agricultural Statistical Department Of GOI</h2>
+<h2 id="skip">Agricultural Statistical Department Of GOI</h2>
 <canvas style="align-content: center;margin-top: 10px" id="lineGraph" width="550" height="450"></canvas>
 <script>
     // Get the canvas element
@@ -146,6 +146,8 @@
         }
     }
     context.stroke();
+
+
 </script>
 <div>
     <p style="text-align: center;margin-top: 20px;font-weight: bold;font-family: Arial">Line chart of the yield of Bajra from 2001 to 2007</p>
